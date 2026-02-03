@@ -22,9 +22,9 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-8 border-t border-border">
+    <footer className="py-8 border-t border-border bg-background">
       <div className="section-container">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-display text-xl font-bold text-foreground">
               MS<span className="text-primary">.</span>
