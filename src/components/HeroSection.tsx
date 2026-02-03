@@ -1,39 +1,36 @@
 import { motion } from "framer-motion";
 import { Download, Eye, ChevronDown, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-developer.jpg";
+import heroImage from "@/assets/hero-dark-hooded.jpg";
 
 export const HeroSection = () => {
   return (
     <section
       id="home"
       className="min-h-screen flex items-center pt-20 lg:pt-0 relative overflow-hidden"
-      style={{ background: "var(--gradient-hero)" }}
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      {/* Full background image */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center right',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/30" />
       </div>
 
-      <div className="section-container w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Text Content */}
+      <div className="section-container w-full relative z-10">
+        <div className="max-w-2xl">
+          {/* Text Content - Left aligned */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="order-2 lg:order-1"
           >
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="text-primary font-medium mb-4"
-            >
-              Hello, I'm
-            </motion.p>
-            
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4">
               Mangaliso{" "}
               <span className="gradient-text">Snothando</span>
@@ -65,28 +62,6 @@ export const HeroSection = () => {
                   View My Work
                 </a>
               </Button>
-            </div>
-          </motion.div>
-
-          {/* Hero Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="order-1 lg:order-2 flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              {/* Decorative ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-primary/20 scale-110 animate-pulse" />
-              <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-2xl" />
-              
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elevated border-4 border-background">
-                <img
-                  src={heroImage}
-                  alt="Mangaliso Snothando - Software Developer"
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
             </div>
           </motion.div>
         </div>

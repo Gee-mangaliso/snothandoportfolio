@@ -1,7 +1,10 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Mail, Phone, Linkedin, Github, Send } from "lucide-react";
+import { useRef, useState } from "react";
+import { Mail, Phone, Linkedin, Github, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 const contactInfo = [
   {
@@ -34,34 +37,103 @@ const socialLinks = [
 export const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { toast } = useToast();
+  
+  const [formData, setFormData] = useState({
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Create mailto link with form data
+    const subject = encodeURIComponent("Message from Portfolio Website");
+    const body = encodeURIComponent(`From: ${formData.email}\n\nMessage:\n${formData.message}`);
+    const mailtoLink = `mailto:mangalisosnothando@gmail.com?subject=${subject}&body=${body}`;
+    
+    window.location.href = mailtoLink;
+    
+    setIsSubmitting(false);
+    setFormData({ email: "", message: "" });
+    
+    toast({
+      title: "Opening email client",
+      description: "Your default email app should open with the message ready to send.",
+    });
+  };
 
   return (
-    <section id="contact" className="py-20 lg:py-32 bg-secondary/30">
+    <section id="contact" className="py-20 lg:py-32 bg-background">
       <div className="section-container">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
-            Get in <span className="gradient-text">Touch</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            I'm open to internships, graduate opportunities, collaborations, and
-            freelance projects
-          </p>
-        </motion.div>
+        <div className="max-w-3xl">
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
+              Get in <span className="gradient-text">Touch</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              I'm open to internships, graduate opportunities, collaborations, and
+              freelance projects
+            </p>
+          </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-            {/* Contact Info */}
+          <div className="space-y-8">
+            {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-6"
+              className="glass-card rounded-2xl p-6 lg:p-8"
+            >
+              <h3 className="text-xl font-semibold text-foreground mb-6">
+                Send me a message
+              </h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Input
+                    type="email"
+                    placeholder="Your email address"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                    className="bg-secondary/50 border-border"
+                  />
+                </div>
+                <div>
+                  <Textarea
+                    placeholder="Your message..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                    rows={5}
+                    className="bg-secondary/50 border-border resize-none"
+                  />
+                </div>
+                <Button type="submit" size="lg" className="w-full gap-2" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <Loader2 size={18} className="animate-spin" />
+                  ) : (
+                    <Send size={18} />
+                  )}
+                  Send Message
+                </Button>
+              </form>
+            </motion.div>
+
+            {/* Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="space-y-4"
             >
               <h3 className="text-xl font-semibold text-foreground">
                 Contact Details
@@ -104,33 +176,6 @@ export const ContactSection = () => {
                     </a>
                   ))}
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Quick Message CTA */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="glass-card rounded-2xl p-8 flex flex-col justify-center"
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                  <Send className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  Let's Work Together
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  Have a project in mind or want to collaborate? Feel free to reach
-                  out via email or connect on social media.
-                </p>
-                <Button size="lg" className="w-full gap-2" asChild>
-                  <a href="mailto:mangalisosnothando@gmail.com">
-                    <Mail size={18} />
-                    Send Email
-                  </a>
-                </Button>
               </div>
             </motion.div>
           </div>
