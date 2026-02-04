@@ -5,34 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "mangalisosnothando@gmail.com",
-    href: "mailto:mangalisosnothando@gmail.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "083 765 9532",
-    href: "tel:+27837659532",
-  },
-];
-
-const socialLinks = [
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    href: "https://linkedin.com",
-  },
-  {
-    icon: Github,
-    label: "GitHub",
-    href: "https://github.com",
-  },
-];
+import { supabase } from "@/integrations/supabase/client";
 
 export const ContactSection = () => {
   const ref = useRef(null);
@@ -49,116 +22,152 @@ export const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create mailto link with form data
-    const subject = encodeURIComponent("Message from Portfolio Website");
-    const body = encodeURIComponent(`From: ${formData.email}\n\nMessage:\n${formData.message}`);
-    const mailtoLink = `mailto:mangalisosnothando@gmail.com?subject=${subject}&body=${body}`;
-    
-    window.location.href = mailtoLink;
-    
-    setIsSubmitting(false);
-    setFormData({ email: "", message: "" });
-    
-    toast({
-      title: "Opening email client",
-      description: "Your default email app should open with the message ready to send.",
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          email: formData.email,
+          message: formData.message,
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message sent!",
+        description: "Thank you for reaching out. I'll get back to you soon!",
+      });
+      
+      setFormData({ email: "", message: "" });
+    } catch (error) {
+      console.error("Email error:", error);
+      // Fallback to mailto
+      const subject = encodeURIComponent("Message from Portfolio Website");
+      const body = encodeURIComponent(`From: ${formData.email}\n\nMessage:\n${formData.message}`);
+      window.location.href = `mailto:mangalisosnothando@gmail.com?subject=${subject}&body=${body}`;
+      
+      toast({
+        title: "Opening email client",
+        description: "Your default email app should open with the message ready to send.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
+  const socialLinks = [
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://linkedin.com",
+    },
+    {
+      icon: Github,
+      label: "GitHub",
+      href: "https://github.com",
+    },
+  ];
+
   return (
-    <section id="contact" className="py-20 lg:py-32 bg-background">
+    <section id="contact" className="py-20 bg-background">
       <div className="section-container">
-        <div className="max-w-3xl">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-12 text-center"
+        >
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
+            Get in <span className="gradient-text">Touch</span>
+          </h2>
+        </motion.div>
+
+        {/* BorderLayout Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* LEFT: Contact Form */}
           <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="mb-16"
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="glass-card rounded-2xl p-6 lg:p-8"
           >
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
-              Get in <span className="gradient-text">Touch</span>
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              I'm open to internships, graduate opportunities, collaborations, and
-              freelance projects
-            </p>
+            <h3 className="text-xl font-semibold text-foreground mb-6">
+              Send me a message
+            </h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Input
+                  type="email"
+                  placeholder="Your email address"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  className="bg-secondary/50 border-border"
+                />
+              </div>
+              <div>
+                <Textarea
+                  placeholder="Your message..."
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
+                  rows={5}
+                  className="bg-secondary/50 border-border resize-none"
+                />
+              </div>
+              <Button type="submit" size="lg" className="w-full gap-2" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <Loader2 size={18} className="animate-spin" />
+                ) : (
+                  <Send size={18} />
+                )}
+                Send Message
+              </Button>
+            </form>
           </motion.div>
 
-          <div className="space-y-8">
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="glass-card rounded-2xl p-6 lg:p-8"
-            >
+          {/* RIGHT: Contact Details */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="space-y-6"
+          >
+            <div className="glass-card rounded-2xl p-6 lg:p-8">
               <h3 className="text-xl font-semibold text-foreground mb-6">
-                Send me a message
-              </h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <Input
-                    type="email"
-                    placeholder="Your email address"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    className="bg-secondary/50 border-border"
-                  />
-                </div>
-                <div>
-                  <Textarea
-                    placeholder="Your message..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    rows={5}
-                    className="bg-secondary/50 border-border resize-none"
-                  />
-                </div>
-                <Button type="submit" size="lg" className="w-full gap-2" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <Loader2 size={18} className="animate-spin" />
-                  ) : (
-                    <Send size={18} />
-                  )}
-                  Send Message
-                </Button>
-              </form>
-            </motion.div>
-
-            {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="space-y-4"
-            >
-              <h3 className="text-xl font-semibold text-foreground">
                 Contact Details
               </h3>
 
-              {contactInfo.map((contact) => (
+              <div className="space-y-4">
                 <a
-                  key={contact.label}
-                  href={contact.href}
-                  className="flex items-center gap-4 p-4 glass-card rounded-xl hover:shadow-soft transition-shadow group"
+                  href="mailto:mangalisosnothando@gmail.com"
+                  className="flex items-center gap-4 p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors group"
                 >
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <contact.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground" />
+                    <Mail className="w-5 h-5 text-primary group-hover:text-primary-foreground" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">
-                      {contact.label}
-                    </p>
-                    <p className="font-medium text-foreground">{contact.value}</p>
+                    <p className="text-sm text-muted-foreground">Email</p>
+                    <p className="font-medium text-foreground">mangalisosnothando@gmail.com</p>
                   </div>
                 </a>
-              ))}
 
-              {/* Social Links */}
-              <div className="pt-4">
+                <a
+                  href="tel:+27837659532"
+                  className="flex items-center gap-4 p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <Phone className="w-5 h-5 text-primary group-hover:text-primary-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Phone</p>
+                    <p className="font-medium text-foreground">083 765 9532</p>
+                  </div>
+                </a>
+              </div>
+
+              {/* Social Links - Below Contact Details */}
+              <div className="pt-6 mt-6 border-t border-border">
                 <h4 className="text-lg font-semibold text-foreground mb-4">
                   Connect With Me
                 </h4>
@@ -177,8 +186,8 @@ export const ContactSection = () => {
                   ))}
                 </div>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

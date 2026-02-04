@@ -18,7 +18,7 @@ export const AIChatbot = () => {
     {
       id: "welcome",
       role: "assistant",
-      content: "Hi! I'm Mangaliso's AI assistant. Ask me anything about his skills, education, projects, or how to get in touch!",
+      content: "Hi! I'm Mangaliso's AI assistant. Ask me anything about her skills, education, projects, or how to get in touch!",
     },
   ]);
   const [input, setInput] = useState("");

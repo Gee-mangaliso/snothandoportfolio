@@ -1,86 +1,114 @@
 import { motion } from "framer-motion";
-import { Download, Eye, ChevronDown, MapPin } from "lucide-react";
+import { ChevronDown, Download, Eye, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-dark-hooded.jpg";
 
 export const HeroSection = () => {
+  const scrollToProjects = () => {
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToAbout = () => {
+    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center pt-20 lg:pt-0 relative overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Full background image */}
-      <div 
+      {/* Background Image */}
+      <div
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center right',
-          backgroundRepeat: 'no-repeat',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/30" />
+        <div className="absolute inset-0 bg-background/70" />
       </div>
 
-      <div className="section-container w-full relative z-10">
-        <div className="max-w-2xl">
-          {/* Text Content - Left aligned */}
+      {/* Content */}
+      <div className="relative z-10 section-container w-full">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-6"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4">
-              Mangaliso{" "}
-              <span className="gradient-text">Snothando</span>
+            {/* Name */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground tracking-tight">
+              <span className="gradient-text">Mangaliso Snothando</span>
             </h1>
-            
-            <h2 className="text-xl sm:text-2xl font-medium text-muted-foreground mb-4">
+
+            {/* Title */}
+            <p className="text-xl sm:text-2xl text-muted-foreground font-medium">
               Software Developer (Student)
-            </h2>
-            
-            <div className="flex items-center gap-2 text-muted-foreground mb-6">
+            </p>
+
+            {/* Location */}
+            <div className="flex items-center justify-center gap-2 text-muted-foreground">
               <MapPin size={18} className="text-primary" />
               <span>South Africa</span>
             </div>
-            
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-lg">
-              I am a Diploma in ICT student with an interest in software development 
-              and web technologies. I focus on building simple, functional, and 
-              user-friendly applications.
+
+            {/* Description */}
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              I am a Diploma in ICT student with an interest in software
+              development, web technologies, and mobile applications. I focus on building simple,
+              functional, and user-friendly applications.
             </p>
-            
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="gap-2 shadow-soft">
+
+            {/* Availability */}
+            <p className="text-primary font-medium">
+              Open to internships, graduate opportunities, collaborations, and freelance projects
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button size="lg" className="gap-2">
                 <Download size={18} />
                 Download CV
               </Button>
-              <Button size="lg" variant="outline" className="gap-2" asChild>
-                <a href="#projects">
-                  <Eye size={18} />
-                  View My Work
-                </a>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={scrollToProjects}
+                className="gap-2"
+              >
+                <Eye size={18} />
+                View My Work
               </Button>
             </div>
+
+            {/* Scroll Indicator - Now below buttons */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2 }}
+              className="pt-8"
+            >
+              <button
+                onClick={scrollToAbout}
+                className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+              >
+                <span className="text-sm">Scroll to explore</span>
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ChevronDown
+                    size={24}
+                    className="group-hover:text-primary transition-colors"
+                  />
+                </motion.div>
+              </button>
+            </motion.div>
           </motion.div>
         </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground"
-        >
-          <span className="text-sm">Scroll to explore</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-          >
-            <ChevronDown size={24} className="text-primary" />
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );
