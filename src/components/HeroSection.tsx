@@ -84,24 +84,24 @@ export const HeroSection = () => {
               </Button>
             </div>
 
-            {/* Scroll Indicator - Now below buttons */}
+            {/* Scroll Indicator - Aligned below buttons */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}
-              className="pt-8"
+              className="pt-6 flex justify-center"
             >
               <button
                 onClick={scrollToAbout}
-                className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+                className="flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-colors group"
               >
-                <span className="text-sm">Scroll to explore</span>
+                <span className="text-sm">Scroll</span>
                 <motion.div
-                  animate={{ y: [0, 8, 0] }}
+                  animate={{ y: [0, 6, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
                   <ChevronDown
-                    size={24}
+                    size={20}
                     className="group-hover:text-primary transition-colors"
                   />
                 </motion.div>
