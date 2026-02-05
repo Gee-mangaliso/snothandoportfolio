@@ -52,7 +52,7 @@ export const HeroSection = () => {
             {/* Location */}
             <div className="flex items-center justify-center gap-2 text-muted-foreground">
               <MapPin size={18} className="text-primary" />
-              <span>South Africa</span>
+              <span>Cape Town, South Africa</span>
             </div>
 
             {/* Description */}
@@ -60,11 +60,6 @@ export const HeroSection = () => {
               A passionate software developer with an interest in web technologies 
               and mobile applications. I focus on building simple, functional, 
               and user-friendly applications.
-            </p>
-
-            {/* Availability */}
-            <p className="text-primary font-medium">
-              Open to internships, graduate opportunities, collaborations, and freelance projects
             </p>
 
             {/* CTAs */}

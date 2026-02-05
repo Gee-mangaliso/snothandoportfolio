@@ -1,40 +1,38 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ExternalLink, Github, Palette, Code, Sparkles, Smartphone } from "lucide-react";
+import { ExternalLink, Palette, Code, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const projects = [
   {
-    title: "UI/UX Design Portfolio",
+    title: "Academic Projects",
     description:
       "A collection of user interface designs and prototypes created using Figma, focusing on clean layouts and user-centered design principles.",
     tags: ["Figma", "UI/UX", "Prototyping"],
     icon: Palette,
-    category: "Web Design",
+    category: "Design",
+    figmaLink: "https://figma.com",
+    image: "/placeholder.svg",
   },
   {
-    title: "Web Development Projects",
+    title: "Developed Projects",
     description:
-      "Functional websites and web applications built during academic coursework, utilizing HTML, CSS, and JavaScript.",
-    tags: ["HTML", "CSS", "JavaScript"],
+      "Functional websites, web applications, and mobile apps built during academic coursework, utilizing HTML, CSS, JavaScript, and Android development.",
+    tags: ["HTML", "CSS", "JavaScript", "Java", "Android"],
     icon: Code,
-    category: "Web Development",
+    category: "Development",
+    figmaLink: null,
+    image: "/placeholder.svg",
   },
   {
-    title: "AI-Assisted Web Apps",
+    title: "Web Applications (AI-Assisted)",
     description:
       "Projects developed using AI-assisted tools like Lovable to speed up development workflows and explore modern development practices.",
     tags: ["Lovable", "AI Tools"],
     icon: Sparkles,
     category: "AI-Assisted",
-  },
-  {
-    title: "Mobile Applications",
-    description:
-      "Building functional mobile applications with focus on user experience and practical functionality for everyday use.",
-    tags: ["Mobile Dev", "Java", "Android"],
-    icon: Smartphone,
-    category: "Mobile Apps",
+    figmaLink: null,
+    image: "/placeholder.svg",
   },
 ];
 
@@ -60,7 +58,7 @@ export const ProjectsSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -69,9 +67,17 @@ export const ProjectsSection = () => {
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               className="group glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-300"
             >
-              {/* Project Icon */}
-              <div className="h-32 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                <project.icon className="w-12 h-12 text-primary/50 group-hover:scale-110 transition-transform" />
+              {/* Project Preview Image */}
+              <div className="relative h-40 overflow-hidden">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                <div className="absolute bottom-3 left-3">
+                  <project.icon className="w-8 h-8 text-primary" />
+                </div>
               </div>
 
               {/* Project Content */}
@@ -102,14 +108,14 @@ export const ProjectsSection = () => {
 
                 {/* Actions */}
                 <div className="flex gap-3">
-                  <Button size="sm" variant="outline" className="gap-2">
-                    <Github size={16} />
-                    Code
-                  </Button>
-                  <Button size="sm" className="gap-2">
-                    <ExternalLink size={16} />
-                    View
-                  </Button>
+                  {project.figmaLink && (
+                    <Button size="sm" className="gap-2" asChild>
+                      <a href={project.figmaLink} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink size={16} />
+                        View on Figma
+                      </a>
+                    </Button>
+                  )}
                 </div>
               </div>
             </motion.div>

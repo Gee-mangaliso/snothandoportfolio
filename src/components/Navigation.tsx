@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -23,17 +23,26 @@ export const Navigation = () => {
   }, []);
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md shadow-soft border-b border-border/50"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="section-container flex items-center justify-between h-16 lg:h-20">
+    <>
+      {/* Opportunities Banner */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground py-2">
+        <div className="section-container flex items-center justify-center gap-2 text-sm">
+          <Sparkles size={14} />
+          <span>Open to internships, graduate opportunities, collaborations, and freelance projects</span>
+        </div>
+      </div>
+      
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={`fixed top-8 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-background/80 backdrop-blur-md shadow-soft border-b border-border/50"
+            : "bg-transparent"
+        }`}
+      >
+        <nav className="section-container flex items-center justify-between h-16 lg:h-20">
         <a href="#home" className="font-display text-xl font-bold text-foreground">
           MS<span className="text-primary">.</span>
         </a>
@@ -92,7 +101,8 @@ export const Navigation = () => {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </motion.header>
+        </AnimatePresence>
+      </motion.header>
+    </>
   );
 };
