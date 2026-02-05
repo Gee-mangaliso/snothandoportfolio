@@ -1,4 +1,4 @@
-import { Linkedin, Github, Mail, Heart } from "lucide-react";
+import { Linkedin, Github, Mail, Heart, Sparkles } from "lucide-react";
 
 const quickLinks = [
   { name: "Home", href: "#home" },
@@ -80,6 +80,10 @@ export const Footer = () => {
             <p className="text-muted-foreground text-sm">
               mangalisosnothando@gmail.com
             </p>
+            <div className="flex items-center gap-2 text-sm text-primary">
+              <Sparkles size={14} />
+              <span>Open to internships, graduate opportunities, collaborations, and freelance projects</span>
+            </div>
           </div>
         </div>
 
