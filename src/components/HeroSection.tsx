@@ -57,9 +57,9 @@ export const HeroSection = () => {
 
             {/* Description */}
             <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              I am a Diploma in ICT student with an interest in software
-              development, web technologies, and mobile applications. I focus on building simple,
-              functional, and user-friendly applications.
+              A passionate software developer with an interest in web technologies 
+              and mobile applications. I focus on building simple, functional, 
+              and user-friendly applications.
             </p>
 
             {/* Availability */}
@@ -69,9 +69,11 @@ export const HeroSection = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="gap-2">
-                <Download size={18} />
-                Download CV
+              <Button size="lg" className="gap-2" asChild>
+                <a href="/cv.pdf" download="Mangaliso_Snothando_CV.pdf">
+                  <Download size={18} />
+                  Download CV
+                </a>
               </Button>
               <Button
                 size="lg"
