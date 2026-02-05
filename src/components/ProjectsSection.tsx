@@ -11,7 +11,7 @@ const projects = [
     tags: ["Figma", "UI/UX", "Prototyping"],
     icon: Palette,
     category: "Design",
-    figmaLink: "https://figma.com",
+    figmaLink: "https://www.figma.com/design/bS8y77RG0WXpEJKsyOMx80/T4-MAF?node-id=0-1&m=dev&t=yJq52UhSiKo0LIuj-1",
     image: "/placeholder.svg",
   },
   {
