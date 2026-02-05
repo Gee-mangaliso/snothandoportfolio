@@ -1,5 +1,7 @@
 /// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" />
 
+import { Resend } from "https://esm.sh/resend@2.0.0";
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -10,63 +12,49 @@ interface ContactRequest {
   message: string;
 }
 
-Deno.serve(async (req) => {
+Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+    if (!RESEND_API_KEY) {
+      throw new Error("RESEND_API_KEY is not configured");
     }
 
+    const resend = new Resend(RESEND_API_KEY);
     const { email, message }: ContactRequest = await req.json();
 
     if (!email || !message) {
       throw new Error("Email and message are required");
     }
 
-    // Use AI to format a nice email notification
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          {
-            role: "system",
-            content: "You are a helpful assistant that formats contact form submissions into a nice email format. Keep it professional and concise."
-          },
-          {
-            role: "user",
-            content: `Format this contact form submission as a nice email:\n\nFrom: ${email}\nMessage: ${message}`
-          }
-        ],
-        max_tokens: 500,
-      }),
+    // Send email using Resend
+    const emailResponse = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to: ["mangalisosnothando@gmail.com"],
+      subject: `New Portfolio Message from ${email}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #3b82f6;">New Message from Portfolio Website</h2>
+          <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>From:</strong> ${email}</p>
+            <p><strong>Message:</strong></p>
+            <p style="white-space: pre-wrap;">${message}</p>
+          </div>
+          <p style="color: #6b7280; font-size: 12px;">This message was sent from your portfolio contact form.</p>
+        </div>
+      `,
+      reply_to: email,
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to process message");
-    }
-
-    // Log the contact submission for now
-    console.log("Contact form submission received:");
-    console.log("From:", email);
-    console.log("Message:", message);
-
-    // Note: For actual email delivery to Gmail, you would need to integrate 
-    // a service like Resend, SendGrid, or Gmail API. For now, we'll return success
-    // and the frontend will fall back to mailto: as a backup.
+    console.log("Email sent successfully:", emailResponse);
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: "Message received! I'll get back to you soon." 
+        message: "Message sent! I'll get back to you soon." 
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
