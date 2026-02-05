@@ -1,6 +1,7 @@
-import { Linkedin, Github, Mail } from "lucide-react";
+import { Linkedin, Github, Mail, Heart } from "lucide-react";
 
 const quickLinks = [
+  { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Education", href: "#education" },
   { name: "Skills", href: "#skills" },
@@ -87,8 +88,8 @@ export const Footer = () => {
           <span className="text-muted-foreground text-sm">
             © {currentYear} Mangaliso Snothando. All rights reserved.
           </span>
-          <span className="text-muted-foreground text-sm">
-            Made with passion in South Africa
+          <span className="text-muted-foreground text-sm flex items-center gap-1">
+            Made with <Heart size={14} className="text-red-500 fill-red-500" /> in Cape Town
           </span>
         </div>
       </div>
