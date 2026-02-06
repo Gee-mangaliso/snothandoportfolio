@@ -5,18 +5,13 @@ import { Code, Palette, Sparkles, Smartphone } from "lucide-react";
 const highlights = [
   {
     icon: Code,
-    title: "Software Development",
-    description: "Building functional applications using Java, Python, and web technologies",
+    title: "Software & Mobile Development",
+    description: "Building functional web and mobile applications using Java, Python, and modern technologies",
   },
   {
     icon: Palette,
     title: "Web Design",
     description: "Creating clean, user-centered layouts with attention to usability",
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile Applications",
-    description: "Developing mobile apps with focus on user experience and functionality",
   },
   {
     icon: Sparkles,
