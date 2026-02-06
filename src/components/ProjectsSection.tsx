@@ -8,7 +8,7 @@ import portfolioScreenshot from "@/assets/portfolio-screenshot.png";
 
 const projects = [
   {
-    title: "Academic Projects",
+    title: "Exotic Music App",
     description:
       "A collection of user interface designs and prototypes created using Figma, focusing on clean layouts and user-centered design principles.",
     tags: ["Figma", "UI/UX", "Prototyping"],
@@ -42,7 +42,7 @@ const projects = [
     figmaLink: null,
     figmaLabel: null,
     githubLink: null,
-    liveLink: "https://lovable.dev/@gee-mangaliso/portfolio",
+    liveLink: "https://snothandoportfolio.lovable.app",
     image: portfolioScreenshot,
   },
 ];
