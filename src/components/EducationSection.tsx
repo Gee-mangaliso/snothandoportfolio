@@ -8,16 +8,6 @@ const educationData = [
     title: "National Senior Certificate (Matric)",
     institution: "Zwelakhe Secondary School",
     period: "Completed: 2023",
-    modules: [
-      "English",
-      "isiXhosa",
-      "Mathematics",
-      "Life Orientation",
-      "Economics",
-      "Business Studies",
-      "Accounting",
-      "Tourism",
-    ],
     current: false,
   },
   {
@@ -25,13 +15,6 @@ const educationData = [
     title: "Diploma in Applications Development",
     institution: "Cape Peninsula University of Technology (CPUT)",
     period: "In Progress",
-    modules: [
-      "Applications Development Practice (ADP)",
-      "Applications Development Foundations",
-      "Projects",
-      "Multimedia",
-      "Python (Elective)",
-    ],
     current: true,
   },
   {
@@ -39,7 +22,6 @@ const educationData = [
     title: "Self-Learning",
     institution: "Continuous Development",
     period: "Ongoing",
-    modules: ["Web Frameworks", "AI-Assisted Development"],
     current: false,
   },
 ];
@@ -120,22 +102,9 @@ export const EducationSection = () => {
                         <p className="text-primary font-medium mb-1">
                           {edu.institution}
                         </p>
-                        <p className="text-sm text-muted-foreground mb-4">
+                        <p className="text-sm text-muted-foreground">
                           {edu.period}
                         </p>
-
-                        {edu.modules.length > 0 && (
-                          <div className="flex flex-wrap gap-2">
-                            {edu.modules.map((module) => (
-                              <span
-                                key={module}
-                                className="text-xs px-3 py-1 rounded-full bg-secondary text-secondary-foreground"
-                              >
-                                {module}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </div>
                     </div>
                   </div>
