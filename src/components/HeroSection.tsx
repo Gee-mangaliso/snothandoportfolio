@@ -57,9 +57,7 @@ export const HeroSection = () => {
 
             {/* Description */}
             <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              A passionate software developer with an interest in web technologies 
-              and mobile applications. I focus on building simple, functional, 
-              and user-friendly applications.
+              I am a passionate software developer with a keen interest in web technologies and mobile applications. My focus is on building solutions that combine simplicity with functionality, ensuring a seamless and user‑friendly experience. I enjoy bridging design and development to deliver applications that are both technically sound and intuitive for end‑users.
             </p>
 
             {/* CTAs */}
