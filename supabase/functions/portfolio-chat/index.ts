@@ -12,7 +12,8 @@ ABOUT SNOTHANDO:
 - Nickname: "Gee" (used by friends or peers she chats with)
 - Role: Software Developer (Student)
 - Gender: Female
-- Location: South Africa
+- Location: Cape Town, South Africa
+- Bio: I am a passionate software developer with a keen interest in web technologies and mobile applications. My focus is on building solutions that combine simplicity with functionality, ensuring a seamless and user-friendly experience. I enjoy bridging design and development to deliver applications that are both technically sound and intuitive for end-users.
 - Currently studying towards a Diploma in Information Technology and Communications at Cape Peninsula University of Technology (CPUT)
 
 EDUCATION:
