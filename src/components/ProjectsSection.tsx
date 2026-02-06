@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ExternalLink, Palette, Code, Sparkles, Github, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import thriftshopScreenshot from "@/assets/thriftshop-screenshot.png";
 
 const projects = [
   {
@@ -25,8 +26,8 @@ const projects = [
     category: "Development",
     figmaLink: null,
     githubLink: "https://github.com/Gee-mangaliso/Thriftshop-e-commerce-website-edited-",
-    liveLink: "https://trigraphic-supereffectively-fidela.ngrok-free.dev",
-    image: "/placeholder.svg",
+    liveLink: "http://127.0.0.1:5000",
+    image: thriftshopScreenshot,
   },
   {
     title: "Web Applications (AI-Assisted)",
