@@ -8,6 +8,7 @@ const educationData = [
     title: "National Senior Certificate (Matric)",
     institution: "Zwelakhe Secondary School",
     period: "Completed: 2023",
+    modules: [],
     current: false,
   },
   {
@@ -15,6 +16,14 @@ const educationData = [
     title: "Diploma in Applications Development",
     institution: "Cape Peninsula University of Technology (CPUT)",
     period: "In Progress",
+    modules: [
+      "Applications Development Foundations",
+      "Applications Development Practise",
+      "Web Frameworks",
+      "Projects",
+      "Information Systems",
+      "Multimedia (UX/UI)",
+    ],
     current: true,
   },
   {
@@ -22,6 +31,7 @@ const educationData = [
     title: "Self-Learning",
     institution: "Continuous Development",
     period: "Ongoing",
+    modules: [],
     current: false,
   },
 ];
@@ -102,9 +112,22 @@ export const EducationSection = () => {
                         <p className="text-primary font-medium mb-1">
                           {edu.institution}
                         </p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground mb-4">
                           {edu.period}
                         </p>
+
+                        {edu.modules.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {edu.modules.map((module) => (
+                              <span
+                                key={module}
+                                className="text-xs px-3 py-1 rounded-full bg-secondary text-secondary-foreground"
+                              >
+                                {module}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
