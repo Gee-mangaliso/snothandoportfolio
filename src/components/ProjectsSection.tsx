@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { ExternalLink, Palette, Code, Sparkles, Github, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import thriftshopScreenshot from "@/assets/thriftshop-screenshot.png";
+import academicScreenshot from "@/assets/academic-figma-screenshot.png";
 
 const projects = [
   {
@@ -13,9 +14,10 @@ const projects = [
     icon: Palette,
     category: "Design",
     figmaLink: "https://www.figma.com/design/bS8y77RG0WXpEJKsyOMx80/T4-MAF?node-id=0-1&m=dev&t=yJq52UhSiKo0LIuj-1",
+    figmaLabel: "T4 MAF - Page 1",
     githubLink: null,
     liveLink: null,
-    image: "/placeholder.svg",
+    image: academicScreenshot,
   },
   {
     title: "Thriftshop E-Commerce Website",
@@ -115,11 +117,11 @@ export const ProjectsSection = () => {
 
                 {/* Actions */}
                 <div className="flex flex-wrap gap-2">
-                  {project.figmaLink && (
+                {project.figmaLink && (
                     <Button size="sm" className="gap-2" asChild>
                       <a href={project.figmaLink} target="_blank" rel="noopener noreferrer">
                         <ExternalLink size={16} />
-                        View on Figma
+                        {project.figmaLabel || "View on Figma"}
                       </a>
                     </Button>
                   )}
