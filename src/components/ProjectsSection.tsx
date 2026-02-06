@@ -33,7 +33,7 @@ const projects = [
     image: thriftshopScreenshot,
   },
   {
-    title: "My Developer Portfolio",
+    title: "Web Developed Projects",
     description:
       "Built using Lovable AI tools to present my projects, CV, and developer identity. This portfolio highlights both traditional coding projects and AI-supported workflows, reflecting my ability to integrate modern development practices with transparency and clarity.",
     tags: ["Lovable", "AI Tools", "React", "TypeScript"],
