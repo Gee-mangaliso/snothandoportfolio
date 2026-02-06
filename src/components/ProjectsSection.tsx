@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ExternalLink, Palette, Code, Sparkles } from "lucide-react";
+import { ExternalLink, Palette, Code, Sparkles, Github, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const projects = [
@@ -12,16 +12,20 @@ const projects = [
     icon: Palette,
     category: "Design",
     figmaLink: "https://www.figma.com/design/bS8y77RG0WXpEJKsyOMx80/T4-MAF?node-id=0-1&m=dev&t=yJq52UhSiKo0LIuj-1",
+    githubLink: null,
+    liveLink: null,
     image: "/placeholder.svg",
   },
   {
-    title: "Developed Projects",
+    title: "Thriftshop E-Commerce Website",
     description:
-      "Functional websites, web applications, and mobile apps built during academic coursework, utilizing HTML, CSS, JavaScript, and Android development.",
-    tags: ["HTML", "CSS", "JavaScript", "Java", "Android"],
+      "A full-stack web application designed for browsing and purchasing thrift items. Users can also become sellers, listing and managing their own products. Focus on simplicity, functionality, and user-friendly experience.",
+    tags: ["HTML", "CSS", "JavaScript", "Python", "Flask"],
     icon: Code,
     category: "Development",
     figmaLink: null,
+    githubLink: "https://github.com/Gee-mangaliso/Thriftshop-e-commerce-website-edited-",
+    liveLink: "https://trigraphic-supereffectively-fidela.ngrok-free.dev",
     image: "/placeholder.svg",
   },
   {
@@ -32,6 +36,8 @@ const projects = [
     icon: Sparkles,
     category: "AI-Assisted",
     figmaLink: null,
+    githubLink: null,
+    liveLink: null,
     image: "/placeholder.svg",
   },
 ];
@@ -107,12 +113,28 @@ export const ProjectsSection = () => {
                 </div>
 
                 {/* Actions */}
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-2">
                   {project.figmaLink && (
                     <Button size="sm" className="gap-2" asChild>
                       <a href={project.figmaLink} target="_blank" rel="noopener noreferrer">
                         <ExternalLink size={16} />
                         View on Figma
+                      </a>
+                    </Button>
+                  )}
+                  {project.githubLink && (
+                    <Button size="sm" variant="outline" className="gap-2" asChild>
+                      <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                        <Github size={16} />
+                        GitHub
+                      </a>
+                    </Button>
+                  )}
+                  {project.liveLink && (
+                    <Button size="sm" variant="secondary" className="gap-2" asChild>
+                      <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
+                        <Globe size={16} />
+                        Live Demo
                       </a>
                     </Button>
                   )}
