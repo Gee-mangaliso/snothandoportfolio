@@ -4,6 +4,7 @@ import { ExternalLink, Palette, Code, Sparkles, Github, Globe } from "lucide-rea
 import { Button } from "@/components/ui/button";
 import thriftshopScreenshot from "@/assets/thriftshop-screenshot.png";
 import academicScreenshot from "@/assets/academic-figma-screenshot.png";
+import portfolioScreenshot from "@/assets/portfolio-screenshot.png";
 
 const projects = [
   {
@@ -32,16 +33,17 @@ const projects = [
     image: thriftshopScreenshot,
   },
   {
-    title: "Web Applications (AI-Assisted)",
+    title: "My Developer Portfolio",
     description:
-      "Projects developed using AI-assisted tools like Lovable to speed up development workflows and explore modern development practices.",
-    tags: ["Lovable", "AI Tools"],
+      "Built using Lovable AI tools to present my projects, CV, and developer identity. This portfolio highlights both traditional coding projects and AI-supported workflows, reflecting my ability to integrate modern development practices with transparency and clarity.",
+    tags: ["Lovable", "AI Tools", "React", "TypeScript"],
     icon: Sparkles,
     category: "AI-Assisted",
     figmaLink: null,
+    figmaLabel: null,
     githubLink: null,
-    liveLink: null,
-    image: "/placeholder.svg",
+    liveLink: "https://lovable.dev/@gee-mangaliso/portfolio",
+    image: portfolioScreenshot,
   },
 ];
 
