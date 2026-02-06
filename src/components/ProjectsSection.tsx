@@ -29,7 +29,7 @@ const projects = [
     category: "Development",
     figmaLink: null,
     githubLink: "https://github.com/Gee-mangaliso/Thriftshop-e-commerce-website-edited-",
-    liveLink: "http://127.0.0.1:5000",
+    liveLink: "https://snothandoportfolio.lovable.app",
     image: thriftshopScreenshot,
   },
   {
