@@ -70,16 +70,16 @@ export const AboutSection = () => {
             academic and practical projects.
           </motion.p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {highlights.map((item, index) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="group glass-card rounded-xl p-6 hover:shadow-elevated transition-all duration-300"
+                className="group glass-card rounded-xl p-6 hover:shadow-elevated transition-all duration-300 text-center"
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <item.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">
